@@ -22,37 +22,28 @@
 export default {
   data() {
     return {
-      id: this.$route.params.id,
-      posts: [
-        {
-          id: "balut",
-          title: "What is Balut",
-          content:
-            "If someone placed balut on your plate, you might think they were serving you a hardboiled egg. That is, until you cracked it open and a fully intact duck embryo spilled out. Balut, considered a delicacy in many Asian countries, is produced when fertilized duck eggs are placed in warm sunlight. After about eight days, the eggs are help up to the light and checked to ensure that the budding embryo is ready. Then, the eggs are cooked and served with a dash of salt and a few squirts of lemon juice."
-        },
-        {
-          id: "whereIsIt",
-          title: "Where is the sign in button?",
-          content:
-            "I've stalked the forum for a while, reading everything closely, but today I decided that it was time to register as a user. So I did"
-        },
+      id: this.$route.params.id
+    };
+  },
 
-        {
-          id: "how",
-          title: "How can I fix the problem?",
-          content:
-            "Please help me. I do not know what is the best way to fix my problem. I can\t reproduce and I can't tell more info. Can someone help me ASAP?"
-        }
+  head() {
+    return {
+      title: this.post.title,
+      meta: [
+        { name: "twitter-title", content: this.post.title },
+        { name: "twitter:description", content: this.post.content },
+        { name: "twitter:image", content: "https://i.imgur.com/UYP2umJ.png" },
+        { name: "twitter:card", content: "summary_large_image" }
       ]
     };
   },
 
   computed: {
     post() {
-      return this.posts.find(post => post.id === this.id);
+      return this.$store.state.posts.all.find(post => post.id === this.id);
     },
     relatedPosts() {
-      return this.posts.filter(post => post.id !== this.id);
+      return this.$store.state.posts.all.filter(post => post.id !== this.id);
     }
   }
 };
